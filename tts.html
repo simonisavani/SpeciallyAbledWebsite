@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">  
+  <title>Text To Speech | Enable The Disable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-orange: #ff6b35;
+      --primary-teal: #2dd4bf;
+      --primary-purple: #8b5cf6;
+      --warm-yellow: #fbbf24;
+      --coral-pink: #fb7185;
+      --forest-green: #10b981;
+      --deep-blue: #1e40af;
+      --cream: #fef3c7;
+      --light-gray: #f8fafc;
+      --medium-gray: #64748b;
+      --dark-gray: #1e293b;
+      --white: #ffffff;
+      --success-green: #22c55e;
+      --error-red: #ef4444;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-gray);
+      color: var(--dark-gray);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Wavy background pattern */
+    .wave-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(45deg, var(--cream) 0%, var(--light-gray) 50%, #e0f2fe 100%);
+    }
+
+    .wave-background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(45, 212, 191, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 60% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 30%);
+      animation: float-waves 20s ease-in-out infinite;
+    }
+
+    @keyframes float-waves {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(-30px, -30px) rotate(120deg); }
+      66% { transform: translate(30px, -20px) rotate(240deg); }
+    }
+
+    /* Navigation */
+    .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: var(--forest-green);
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            border: 3px solid var(--primary-orange);
+        }
+
+
+     .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-brand::after {
+            content: '🎤';
+            position: absolute;
+            right: -25px;
+            top: -5px;
+            font-size: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+
+  @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+    /* Main Container */
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      margin-top: 100px;
+    }
+
+    .wrapper {
+      background: var(--white);
+      border-radius: 30px;
+      padding: 3rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      border: 4px solid transparent;
+      background-image: linear-gradient(var(--white), var(--white)), 
+                        linear-gradient(135deg, var(--primary-orange), var(--primary-teal), var(--primary-purple));
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-orange), var(--primary-teal), var(--primary-purple), var(--warm-yellow));
+      border-radius: 30px 30px 0 0;
+    }
+
+    header {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+      border-radius: 2px;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    label::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      /* background: linear-gradient(135deg, var(--primary-orange), var(--coral-pink)); */
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 1.5rem;
+      border: 3px solid var(--light-gray);
+      border-radius: 20px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: var(--light-gray);
+      color: var(--dark-gray);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-orange);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+      transform: translateY(-2px);
+    }
+
+    textarea::placeholder {
+      color: var(--medium-gray);
+      font-style: italic;
+    }
+
+    .outer {
+      position: relative;
+    }
+
+    select {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      border: 3px solid var(--light-gray);
+      border-radius: 20px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-gray);
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      appearance: none;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary-teal);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .outer::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-teal);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    /* Control Buttons */
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-orange), var(--coral-pink));
+      color: var(--white);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--primary-teal), var(--forest-green));
+      color: var(--white);
+      box-shadow: 0 8px 25px rgba(45, 212, 191, 0.3);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--error-red), #dc2626);
+      color: var(--white);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Voice Controls */
+    .voice-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, var(--cream), #fef3c7);
+      border-radius: 20px;
+      border: 2px solid var(--warm-yellow);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .control-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      text-align: center;
+    }
+
+    .slider {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--light-gray);
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-orange), var(--coral-pink));
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-orange), var(--coral-pink));
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+    }
+
+    .slider-value {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-orange);
+      background: var(--white);
+      padding: 0.2rem 0.6rem;
+      border-radius: 10px;
+      border: 1px solid var(--primary-orange);
+    }
+
+    /* Status Indicator */
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .status.ready {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+      color: var(--success-green);
+      border: 2px solid var(--success-green);
+    }
+
+    .status.speaking {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(251, 113, 133, 0.1));
+      color: var(--primary-orange);
+      border: 2px solid var(--primary-orange);
+      animation: pulse-status 1.5s ease-in-out infinite;
+    }
+
+    .status.error {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+      color: var(--error-red);
+      border: 2px solid var(--error-red);
+    }
+
+    @keyframes pulse-status {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .status-icon {
+      font-size: 1.2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        position: static;
+        transform: none;
+        margin: 1rem;
+        border-radius: 15px;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .container {
+        margin-top: 2rem;
+        padding: 1rem;
+      }
+
+      .wrapper {
+        padding: 2rem 1.5rem;
+      }
+
+      header {
+        font-size: 2rem;
+      }
+
+      .voice-controls {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--white);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Wavy Background -->
+  <div class="wave-background"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand" aria-label="Enable The Disable - Home">Enable The Disable</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">Text To Speech</a></li>
+                <li><a href="stt.html" class="nav-link active">Speech To Text</a></li>
+                <li><a href="sl.html" class="nav-link">Sign Language</a></li>
+            </ul>
+        </div>
+    </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <div class="wrapper">
+      <header>Text To Speech</header>
+      
+      <div class="form-container">
+        <div class="row">
+          <label for="text-input">
+            <i class="fas fa-edit"></i>
+            Enter Text
+          </label>
+          <textarea 
+            id="text-input" 
+            placeholder="Type or paste your text here... The tool will convert it to natural-sounding speech!"
+            aria-describedby="text-help"
+          ></textarea>
+          <div id="text-help" class="sr-only">
+            Enter the text you want to convert to speech. You can type or paste content here.
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="voice-select">
+            <i class="fas fa-user"></i>
+            Select Voice
+          </label>
+          <div class="outer">
+            <select id="voice-select" aria-describedby="voice-help">
+              <option value="">Loading voices...</option>
+            </select>
+            <div id="voice-help" class="sr-only">
+              Choose from available text-to-speech voices on your device.
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Controls -->
+        <div class="voice-controls">
+          <div class="control-group">
+            <label class="control-label" for="rate-slider">Speed</label>
+            <input 
+              type="range" 
+              id="rate-slider" 
+              class="slider" 
+              min="0.1" 
+              max="3" 
+              step="0.1" 
+              value="1"
+              aria-describedby="rate-help"
+            >
+            <span class="slider-value" id="rate-value">1.0x</span>
+            <div id="rate-help" class="sr-only">Adjust the speaking speed from 0.1x to 3x normal speed.</div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="pitch-slider">Pitch</label>
+            <input 
+              type="range" 
+              id="pitch-slider" 
+              class="slider" 
+              min="0" 
+              max="2" 
+              step="0.1" 
+              value="1"
+              aria-describedby="pitch-help"
+            >
+            <span class="slider-value" id="pitch-value">1.0</span>
+            <div id="pitch-help" class="sr-only">Adjust the voice pitch from low to high.</div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="volume-slider">Volume</label>
+            <input 
+              type="range" 
+              id="volume-slider" 
+              class="slider" 
+              min="0" 
+              max="1" 
+              step="0.1" 
+              value="1"
+              aria-describedby="volume-help"
+            >
+            <span class="slider-value" id="volume-value">100%</span>
+            <div id="volume-help" class="sr-only">Adjust the volume from 0% to 100%.</div>
+          </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="controls">
+          <button id="speak-btn" class="btn btn-primary" aria-describedby="speak-help">
+            <i class="fas fa-play"></i>
+            <span>Convert To Speech</span>
+          </button>
+          
+          <button id="pause-btn" class="btn btn-secondary" disabled aria-describedby="pause-help">
+            <i class="fas fa-pause"></i>
+            <span>Pause</span>
+          </button>
+          
+          <button id="stop-btn" class="btn btn-danger" disabled aria-describedby="stop-help">
+            <i class="fas fa-stop"></i>
+            <span>Stop</span>
+          </button>
+        </div>
+
+        <div id="speak-help" class="sr-only">Start converting the entered text to speech.</div>
+        <div id="pause-help" class="sr-only">Pause the current speech playback.</div>
+        <div id="stop-help" class="sr-only">Stop the current speech and reset.</div>
+
+        <!-- Status Indicator -->
+        <div id="status" class="status ready">
+          <i class="fas fa-check-circle status-icon"></i>
+          <span>Ready to convert text to speech</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Text-to-Speech functionality
+    class TextToSpeech {
+      constructor() {
+        this.synth = window.speechSynthesis;
+        this.utterance = null;
+        this.voices = [];
+        this.isPlaying = false;
+        this.isPaused = false;
+        
+        this.init();
+      }
+
+      init() {
+        this.bindElements();
+        this.loadVoices();
+        this.bindEvents();
+        this.updateStatus('ready', 'Ready to convert text to speech');
+      }
+
+      bindElements() {
+        this.textInput = document.getElementById('text-input');
+        this.voiceSelect = document.getElementById('voice-select');
+        this.rateSlider = document.getElementById('rate-slider');
+        this.pitchSlider = document.getElementById('pitch-slider');
+        this.volumeSlider = document.getElementById('volume-slider');
+        this.speakBtn = document.getElementById('speak-btn');
+        this.pauseBtn = document.getElementById('pause-btn');
+        this.stopBtn = document.getElementById('stop-btn');
+        this.status = document.getElementById('status');
+        this.rateValue = document.getElementById('rate-value');
+        this.pitchValue = document.getElementById('pitch-value');
+        this.volumeValue = document.getElementById('volume-value');
+      }
+
+      loadVoices() {
+        this.voices = this.synth.getVoices();
+        
+        if (this.voices.length === 0) {
+          // Voices not loaded yet, wait for voiceschanged event
+          this.synth.addEventListener('voiceschanged', () => {
+            this.voices = this.synth.getVoices();
+            this.populateVoiceSelect();
+          });
+        } else {
+          this.populateVoiceSelect();
+        }
+      }
+
+      populateVoiceSelect() {
+        this.voiceSelect.innerHTML = '';
+        
+        // Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Default Voice';
+        this.voiceSelect.appendChild(defaultOption);
+
+        // Group voices by language
+        const voicesByLang = {};
+        this.voices.forEach((voice, index) => {
+          const lang = voice.lang.split('-')[0];
+          if (!voicesByLang[lang]) {
+            voicesByLang[lang] = [];
+          }
+          voicesByLang[lang].push({ voice, index });
+        });
+
+        // Add voices to select
+        Object.keys(voicesByLang).sort().forEach(lang => {
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = lang.toUpperCase();
+          
+          voicesByLang[lang].forEach(({ voice, index }) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Remote)'}`;
+            optgroup.appendChild(option);
+          });
+          
+          this.voiceSelect.appendChild(optgroup);
+        });
+      }
+
+      bindEvents() {
+        // Slider events
+        this.rateSlider.addEventListener('input', (e) => {
+          this.rateValue.textContent = `${parseFloat(e.target.value).toFixed(1)}x`;
+        });
+
+        this.pitchSlider.addEventListener('input', (e) => {
+          this.pitchValue.textContent = parseFloat(e.target.value).toFixed(1);
+        });
+
+        this.volumeSlider.addEventListener('input', (e) => {
+          const volume = Math.round(parseFloat(e.target.value) * 100);
+          this.volumeValue.textContent = `${volume}%`;
+        });
+
+        // Button events
+        this.speakBtn.addEventListener('click', () => this.handleSpeak());
+        this.pauseBtn.addEventListener('click', () => this.handlePause());
+        this.stopBtn.addEventListener('click', () => this.handleStop());
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+          if (e.ctrlKey || e.metaKey) {
+            switch(e.key) {
+              case 'Enter':
+                e.preventDefault();
+                this.handleSpeak();
+                break;
+              case ' ':
+                e.preventDefault();
+                if (this.isPlaying) {
+                  this.handlePause();
+                }
+                break;
+              case 'Escape':
+                e.preventDefault();
+                this.handleStop();
+                break;
+            }
+          }
+        });
+      }
+
+      handleSpeak() {
+        const text = this.textInput.value.trim();
+        
+        if (!text) {
+          this.updateStatus('error', 'Please enter some text to convert');
+          this.textInput.focus();
+          return;
+        }
+
+        if (this.isPaused && this.isPlaying) {
+          // Resume paused speech
+          this.synth.resume();
+          this.isPaused = false;
+          this.updateButtons();
+          this.updateStatus('speaking', 'Resuming speech...');
+          return;
+        }
+
+        // Stop any current speech
+        this.synth.cancel();
+        
+        // Create new utterance
+        this.utterance = new SpeechSynthesisUtterance(text);
+        
+        // Set voice
+        const selectedVoiceIndex = this.voiceSelect.value;
+        if (selectedVoiceIndex !== '') {
+          this.utterance.voice = this.voices[selectedVoiceIndex];
+        }
+        
+        // Set parameters
+        this.utterance.rate = parseFloat(this.rateSlider.value);
+        this.utterance.pitch = parseFloat(this.pitchSlider.value);
+        this.utterance.volume = parseFloat(this.volumeSlider.value);
+        
+        // Set event handlers
+        this.utterance.onstart = () => {
+          this.isPlaying = true;
+          this.isPaused = false;
+          this.updateButtons();
+          this.updateStatus('speaking', 'Converting text to speech...');
+        };
+        
+        this.utterance.onend = () => {
+          this.isPlaying = false;
+          this.isPaused = false;
+          this.updateButtons();
+          this.updateStatus('ready', 'Speech completed successfully');
+        };
+        
+        this.utterance.onerror = (event) => {
+          this.isPlaying = false;
+          this.isPaused = false;
+          this.updateButtons();
+          this.updateStatus('error', `Speech error: ${event.error}`);
+        };
+        
+        this.utterance.onpause = () => {
+          this.isPaused = true;
+          this.updateButtons();
+          this.updateStatus('ready', 'Speech paused');
+        };
+        
+        // Start speaking
+        this.synth.speak(this.utterance);
+      }
+
+      handlePause() {
+        if (this.isPlaying && !this.isPaused) {
+          this.synth.pause();
+        } else if (this.isPaused) {
+          this.synth.resume();
+        }
+      }
+
+      handleStop() {
+        this.synth.cancel();
+        this.isPlaying = false;
+        this.isPaused = false;
+        this.updateButtons();
+        this.updateStatus('ready', 'Speech stopped');
+      }
+
+      updateButtons() {
+        // Update speak button
+        if (this.isPaused) {
+          this.speakBtn.innerHTML = '<i class="fas fa-play"></i><span>Resume</span>';
+          this.speakBtn.disabled = false;
+        } else if (this.isPlaying) {
+          this.speakBtn.innerHTML = '<i class="loading"></i><span>Speaking...</span>';
+          this.speakBtn.disabled = true;
+        } else {
+          this.speakBtn.innerHTML = '<i class="fas fa-play"></i><span>Convert To Speech</span>';
+          this.speakBtn.disabled = false;
+        }
+        
+        // Update pause button
+        this.pauseBtn.disabled = !this.isPlaying;
+        if (this.isPaused) {
+          this.pauseBtn.innerHTML = '<i class="fas fa-play"></i><span>Resume</span>';
+        } else {
+          this.pauseBtn.innerHTML = '<i class="fas fa-pause"></i><span>Pause</span>';
+        }
+        
+        // Update stop button
+        this.stopBtn.disabled = !this.isPlaying && !this.isPaused;
+      }
+
+      updateStatus(type, message) {
+        this.status.className = `status ${type}`;
+        this.status.innerHTML = `
+          <i class="fas ${this.getStatusIcon(type)} status-icon"></i>
+          <span>${message}</span>
+        `;
+      }
+
+      getStatusIcon(type) {
+        switch(type) {
+          case 'ready': return 'fa-check-circle';
+          case 'speaking': return 'fa-volume-up';
+          case 'error': return 'fa-exclamation-triangle';
+          default: return 'fa-info-circle';
+        }
+      }
+    }
+
+    // Utility functions
+    function addRippleEffect(element, event) {
+      const ripple = document.createElement('span');
+      const rect = element.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.style.position = 'absolute';
+      ripple.style.borderRadius = '50%';
+      ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+      ripple.style.transform = 'scale(0)';
+      ripple.style.animation = 'ripple 0.6s linear';
+      ripple.style.pointerEvents = 'none';
+      
+      element.style.position = 'relative';
+      element.style.overflow = 'hidden';
+      element.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    }
+
+    // Add ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Text-to-Speech
+      const tts = new TextToSpeech();
+      
+      // Add ripple effects to buttons
+      document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+          addRippleEffect(this, e);
+        });
+      });
+
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Auto-resize textarea
+      const textarea = document.getElementById('text-input');
+      textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.max(150, this.scrollHeight) + 'px';
+      });
+
+      // Sample text suggestions
+      const sampleTexts = [
+        "Welcome to our text-to-speech tool! This technology helps make content accessible to everyone.",
+        "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet.",
+        "Hello world! This is a test of the text-to-speech functionality.",
+        "Accessibility is not a feature, it's a fundamental right that enables everyone to participate fully in the digital world."
+      ];
+
+      // Add sample text functionality
+      const addSampleButton = document.createElement('button');
+      addSampleButton.type = 'button';
+      addSampleButton.className = 'btn btn-secondary';
+      addSampleButton.innerHTML = '<i class="fas fa-lightbulb"></i><span>Try Sample Text</span>';
+      addSampleButton.style.marginTop = '1rem';
+      
+      addSampleButton.addEventListener('click', () => {
+        const randomText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+        textarea.value = randomText;
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(150, textarea.scrollHeight) + 'px';
+        textarea.focus();
+      });
+
+      // Insert sample button after textarea
+      textarea.parentNode.insertBefore(addSampleButton, textarea.nextSibling);
+
+      // Keyboard accessibility improvements
+      document.addEventListener('keydown', (e) => {
+        // Alt + S for speak
+        if (e.altKey && e.key === 's') {
+          e.preventDefault();
+          document.getElementById('speak-btn').click();
+        }
+        
+        // Alt + P for pause
+        if (e.altKey && e.key === 'p') {
+          e.preventDefault();
+          document.getElementById('pause-btn').click();
+        }
+        
+        // Alt + X for stop
+        if (e.altKey && e.key === 'x') {
+          e.preventDefault();
+          document.getElementById('stop-btn').click();
+        }
+
+        // Alt + T to focus textarea
+        if (e.altKey && e.key === 't') {
+          e.preventDefault();
+          textarea.focus();
+        }
+      });
+
+      // Voice loading status
+      if (speechSynthesis.getVoices().length === 0) {
+        const loadingMessage = document.createElement('div');
+        loadingMessage.className = 'status ready';
+        loadingMessage.innerHTML = `
+          <i class="fas fa-spinner fa-spin status-icon"></i>
+          <span>Loading available voices...</span>
+        `;
+        
+        document.querySelector('.form-container').insertBefore(
+          loadingMessage, 
+          document.querySelector('.voice-controls')
+        );
+
+        speechSynthesis.addEventListener('voiceschanged', () => {
+          loadingMessage.remove();
+        });
+      }
+
+      // Character count for textarea
+      const charCount = document.createElement('div');
+      charCount.style.cssText = `
+        font-size: 0.9rem;
+        color: var(--medium-gray);
+        text-align: right;
+        margin-top: 0.5rem;
+        font-weight: 500;
+      `;
+      
+      function updateCharCount() {
+        const count = textarea.value.length;
+        charCount.textContent = `${count} characters`;
+        
+        if (count > 1000) {
+          charCount.style.color = 'var(--primary-orange)';
+        } else {
+          charCount.style.color = 'var(--medium-gray)';
+        }
+      }
+      
+      textarea.addEventListener('input', updateCharCount);
+      textarea.parentNode.appendChild(charCount);
+      updateCharCount();
+
+      // Save user preferences
+      function savePreferences() {
+        const prefs = {
+          rate: document.getElementById('rate-slider').value,
+          pitch: document.getElementById('pitch-slider').value,
+          volume: document.getElementById('volume-slider').value,
+          voice: document.getElementById('voice-select').value
+        };
+        localStorage.setItem('tts-preferences', JSON.stringify(prefs));
+      }
+
+      function loadPreferences() {
+        try {
+          const prefs = JSON.parse(localStorage.getItem('tts-preferences'));
+          if (prefs) {
+            document.getElementById('rate-slider').value = prefs.rate || 1;
+            document.getElementById('pitch-slider').value = prefs.pitch || 1;
+            document.getElementById('volume-slider').value = prefs.volume || 1;
+            
+            // Update display values
+            document.getElementById('rate-value').textContent = `${parseFloat(prefs.rate || 1).toFixed(1)}x`;
+            document.getElementById('pitch-value').textContent = parseFloat(prefs.pitch || 1).toFixed(1);
+            document.getElementById('volume-value').textContent = `${Math.round((prefs.volume || 1) * 100)}%`;
+            
+            // Set voice after voices are loaded
+            setTimeout(() => {
+              if (prefs.voice) {
+                document.getElementById('voice-select').value = prefs.voice;
+              }
+            }, 500);
+          }
+        } catch (e) {
+          console.log('No saved preferences found');
+        }
+      }
+
+      // Load preferences on startup
+      loadPreferences();
+
+      // Save preferences when changed
+      ['rate-slider', 'pitch-slider', 'volume-slider', 'voice-select'].forEach(id => {
+        document.getElementById(id).addEventListener('change', savePreferences);
+      });
+
+      // Add tooltips for accessibility
+      const tooltips = {
+        'text-input': 'Keyboard shortcut: Alt+T to focus',
+        'speak-btn': 'Keyboard shortcut: Alt+S to speak',
+        'pause-btn': 'Keyboard shortcut: Alt+P to pause',
+        'stop-btn': 'Keyboard shortcut: Alt+X to stop'
+      };
+
+      Object.keys(tooltips).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.title = tooltips[id];
+        }
+      });
+
+      // Focus management
+      textarea.focus();
+
+      // Announce keyboard shortcuts for screen readers
+      const shortcutInfo = document.createElement('div');
+      shortcutInfo.className = 'sr-only';
+      shortcutInfo.innerHTML = `
+        Keyboard shortcuts available: 
+        Alt+T to focus text area, 
+        Alt+S to speak, 
+        Alt+P to pause, 
+        Alt+X to stop, 
+        Ctrl+Enter or Cmd+Enter to speak
+      `;
+      document.body.appendChild(shortcutInfo);
+
+      console.log('Text-to-Speech tool initialized successfully!');
+    });
+
+    // Accessibility: Respect user's motion preferences
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+      document.querySelectorAll('*').forEach(el => {
+        el.style.animationDuration = '0.01ms';
+        el.style.transitionDuration = '0.01ms';
+      });
+    }
+  </script>
+
+</body>
+</html>

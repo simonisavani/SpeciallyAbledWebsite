@@ -1,0 +1,36 @@
+header {
+    text-align: center;
+    margin-top: 20px;
+    box-sizing: border-box;
+    background-color: aliceblue;
+    width: 30%;
+    margin-left: 500px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    font-size: xx-large;
+}
+
+.card {
+    margin-bottom: 20px;
+    background-color:lightgray;
+}
+
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    text-align: justify;
+}
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-image:linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("https://bangaloremirror.indiatimes.com/photo/58107430.cms");
+}

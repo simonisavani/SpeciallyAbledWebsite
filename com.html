@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Share Your Experiences</title>
+  <link rel="stylesheet" href="com.css" />
+</head>
+<body>
+
+  <div class="nav" id="navlinks">
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="com.html">EVENTS</a></li>
+      <li><a href="emp.html">OPPORTUNITIES</a></li>
+    </ul>
+  </div>
+
+  <header>
+    <h1>Share Your Story</h1>
+    <p>Your journey matters. Inspire others by sharing your experience.</p>
+  </header>
+
+  <main>
+    <form id="message-form">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
+
+      <button type="submit" id="submit-btn">Submit Story</button>
+    </form>
+
+    <div id="message-container"></div>
+  </main>
+
+  <script src="com.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* Reset and Base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.6)
+  ),
+  url("https://st3.depositphotos.com/3343629/17234/i/1600/depositphotos_172347824-stock-photo-concept-of-employment-of-persons.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav ul li a {
+  color: whitesmoke;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav ul li:hover a {
+  color: #ffd700;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+header h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  background: #ffffff22;
+  border-radius: 30px;
+  display: inline-block;
+  padding: 15px 40px;
+  color: #fff;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+header p {
+  font-size: 20px;
+  color: #f1f1f1;
+  margin-top: 10px;
+}
+
+/* Form Styling */
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  margin-bottom: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #fff;
+}
+
+input,
+textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 15px;
+  background-color: #ffffffcc;
+  color: #333;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Button */
+button {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffd700;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e0c200;
+}
+
+/* Submitted Message Container */
+#message-container {
+  margin-top: 20px;
+}
+
+.message {
+  background-color: #fff;
+  color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 32px;
+    padding: 10px 20px;
+  }
+
+  main {
+    padding: 20px;
+    margin: 20px;
+  }
+}

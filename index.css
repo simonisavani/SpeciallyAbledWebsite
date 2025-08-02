@@ -1,0 +1,68 @@
+/* Reset & Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.header {
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("https://blogs.dpuerp.in/images/blog/7/22-enabling-the-disabled-an-insight-into-the-measures-for-the-specially-abled-population-of-our-country.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+/* Image Circles */
+.label {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Card Improvements */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fdfdfd;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer a {
+  text-decoration: none;
+  color: #ddd;
+}
+
+footer a:hover {
+  color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .label {
+    width: 100px;
+    height: 100px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .card-body p {
+    font-size: 14px;
+  }
+}
