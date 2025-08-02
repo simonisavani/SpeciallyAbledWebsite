@@ -47,9 +47,6 @@ To deploy:
 4. Visit the published link!
 
 ---
-
-## Contributing
-
+Contributing
 Want to contribute?
 Feel free to fork the repo, make changes, and submit a pull request!
-```
